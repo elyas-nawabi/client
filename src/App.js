@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {Admin, Resource} from 'react-admin'
+import restProvider from 'ra-data-simple-rest'
+import PostList from './components/PostList'
+import PostCreate from './components/PostCreate'
+import PostEdit from './components/PostEdit'
+import UserList from './components/UserList'
+import UserCreate from './components/UserCreate'
+import UserEdit from './components/UserEdit'
+import authProvider from './authProvider';
+import Dashboard from './Dashboard';
+import PostIcon from '@material-ui/icons/Book';
+import UserIcon from '@material-ui/icons/Group';
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Admin dashboard={Dashboard} authProvider={authProvider} dataProvider={restProvider('http://localhost:3000')}>
+      <Resource name="posts" 
+      list={PostList} 
+      create={PostCreate}
+      edit={PostEdit}
+      icon={PostIcon}
+      />
+      <Resource name="users" 
+      list={UserList} 
+      create={UserCreate}
+      edit={UserEdit}
+      icon={UserIcon}
+      />
+    </Admin>
   );
 }
 
